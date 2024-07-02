@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import path from "path";
+
 const nextConfig = {
   experimental: {
     reactCompiler: true,
@@ -11,6 +13,10 @@ const nextConfig = {
   webpack(config, options) {
     const {isServer} = options;
 
+    const dirPath = path.resolve("./src/app/api");
+
+    // Agregar alias para src/app/api
+    config.resolve.alias["@api"] = dirPath;
     config.module.rules.push({
       test: /\.(ogg|mp3|wav|mpe?g)$/i,
       use: [

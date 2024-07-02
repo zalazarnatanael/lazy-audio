@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/multiparty": "^0.0.36",
+    "assemblyai": "^4.5.0",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.7.2",
+    "fs-extra": "^11.2.0",
+    "multiparty": "^4.2.3",
     "next": "15.0.0-canary.38",
     "postcss": "^8.4.38",
     "react": "19.0.0-rc-4c2e457c7c-20240522",

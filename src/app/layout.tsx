@@ -14,11 +14,11 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en">
       <body className="dark container m-auto grid min-h-screen grid-rows-[auto,1fr,auto] px-4 font-sans antialiased">
         <header className="text-xl font-bold leading-[4rem]">
-          <Link href="/">lazy-audio</Link>
+          <Link href="/">Lazy Audio</Link>
         </header>
         <main className="py-8">{children}</main>
         <footer className="text-center leading-[4rem] opacity-70">
-          © {new Date().getFullYear()} lazy-audio
+          © {new Date().getFullYear()} Lazy Audio
         </footer>
       </body>
     </html>
