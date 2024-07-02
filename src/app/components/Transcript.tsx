@@ -100,16 +100,16 @@ function App() {
 
   const handleTranscription = async () => {
     try {
-      setStatus("uploading");
-      const url = await upload(file);
-
-      setStatus("transcribing");
-      const data = await transcribe(url, lang);
-
-      setTranscription(data.utterances);
-      setStatus("done");
-
       if (file) {
+        setStatus("uploading");
+        const url = await upload(file);
+
+        setStatus("transcribing");
+        const data = await transcribe(url, lang);
+
+        setTranscription(data.utterances);
+        setStatus("done");
+
         const blob = window.URL;
         const fileURL = blob.createObjectURL(file);
 
