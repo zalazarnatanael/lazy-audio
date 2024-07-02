@@ -196,7 +196,7 @@ function App() {
         </div>
         {file ? (
           <div className={`mt-2 grid gap-4 rounded-lg ${error && "border-red-500"}`}>
-            {transcription && !error ? (
+            {transcription.length > 0 && !error ? (
               transcription.map((mess) => (
                 <button
                   key={mess.start}
