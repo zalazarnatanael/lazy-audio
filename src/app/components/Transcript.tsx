@@ -90,7 +90,7 @@ function App() {
     if (event.target?.files && event.target.files.length > 0) {
       audio.current?.pause();
       setFile(event.target.files[0]);
-      setTranscription("");
+      setTranscription([]);
       setError("");
       setStatus("");
 
