@@ -3,6 +3,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import {ChangeEvent} from "react";
 import axios from "axios";
 
+import {Message, Word} from "@/types";
 import Loader from "@/app/components/Loader";
 
 const wait = (time: number) => {
@@ -38,23 +39,6 @@ const transcribe = async (url: string, lang: string) => {
 
   return data;
 };
-
-interface Word {
-  confidence: number;
-  end: number;
-  speaker: string;
-  start: number;
-  text: string;
-}
-
-interface Message {
-  confidence: number;
-  end: number;
-  speaker: string;
-  start: number;
-  text: string;
-  words: Word[];
-}
 
 function App() {
   const audio = useRef<HTMLAudioElement>(null);
@@ -157,7 +141,7 @@ function App() {
           type="button"
           onClick={handleTranscription}
         >
-          Transcribe
+          Transcribir
         </button>
         <div className="flex w-full justify-between pt-4">
           <div className="flex gap-1">
@@ -194,45 +178,51 @@ function App() {
             <label htmlFor="none">None</label>
           </div>
         </div>
-        {file ? (
-          <div className={`mt-2 grid gap-4 rounded-lg ${error && "border-red-500"}`}>
-            {transcription.length > 0 && !error ? (
-              transcription.map((mess) => (
-                <button
-                  key={mess.start}
-                  className={`
+        <div>
+          <p>
+            Formatos compatibles: .AIF, .FLV, .MPGA, .M4A, .MP3, OGG, .WAV; Tamaño maximo: 3mb, Max
+            Duracion: 10 min
+          </p>
+        </div>
+        <div
+          className={`mt-2 grid min-h-48 gap-4 rounded-lg ${error && "border-red-500"} ${file ? "visible" : "invisible"}`}
+        >
+          {transcription.length > 0 && !error ? (
+            transcription.map((mess) => (
+              <button
+                key={mess.start}
+                className={`
                     max-w-[90%] 
                      rounded-lg p-2 ${mess.speaker.toLowerCase() === "a" ? "rounded-bl-none bg-neutral-600" : "justify-self-end rounded-br-none bg-neutral-500"}`}
-                  id={String(mess.start)}
-                  type="button"
-                  onClick={() => handleClick(mess.start / 1000)}
-                >
-                  <span className="inline-flex flex-wrap gap-1">
-                    {mess.words.map((word: Word) => (
-                      <span
-                        key={word.start}
-                        className={`${progress < word.start / 1000 ? "opacity-50" : "opacity-100"}`}
-                      >
-                        {word.text}
-                      </span>
-                    ))}
-                  </span>
-                </button>
-              ))
-            ) : (
-              <div className="flex w-full justify-center">
-                {status && !error ? (
-                  <>
-                    <Loader />
-                    <span className="ml-2 capitalize">{status}...</span>
-                  </>
-                ) : null}
-                {error ? <span className="text-red-500">{error}</span> : null}
-                {!status && !error && `File "${file.name}" ready for transcription`}
-              </div>
-            )}
-          </div>
-        ) : null}
+                id={String(mess.start)}
+                type="button"
+                onClick={() => handleClick(mess.start / 1000)}
+              >
+                <span className="inline-flex flex-wrap gap-1">
+                  {mess.words.map((word: Word) => (
+                    <span
+                      key={word.start}
+                      className={`${progress < word.start / 1000 ? "opacity-50" : "opacity-100"}`}
+                    >
+                      {word.text}
+                    </span>
+                  ))}
+                </span>
+              </button>
+            ))
+          ) : (
+            <div className="flex w-full justify-center">
+              {status && !error ? (
+                <>
+                  <Loader />
+                  <span className="ml-2 capitalize">{status}...</span>
+                </>
+              ) : null}
+              {error ? <span className="text-red-500">{error}</span> : null}
+              {!status && !error && `File "${file?.name}" ready for transcription`}
+            </div>
+          )}
+        </div>
         <audio
           ref={audio}
           controls
