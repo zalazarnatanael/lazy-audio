@@ -185,7 +185,7 @@ function App() {
           </p>
         </div>
         <div
-          className={`mt-2 grid min-h-48 gap-4 rounded-lg ${error && "border-red-500"} ${file ? "visible" : "invisible"}`}
+          className={`mt-2 grid gap-4 rounded-lg ${error && "border-red-500"} ${file ? "visible" : "invisible"}`}
         >
           {transcription.length > 0 && !error ? (
             transcription.map((mess) => (
